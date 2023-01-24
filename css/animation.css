@@ -1,0 +1,10 @@
+/* main-header anim */
+
+@keyframes a1 {
+    From {
+        width: 300px;
+    }
+    To {
+        width: 100px;
+    }
+}

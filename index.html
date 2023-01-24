@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href='https://fonts.googleapis.com/css?family=MedievalSharp' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="css/utils.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animation.css">
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <title>ALF ANDOR - Bir Marangoz Klasiği</title>
+    
+</head>
+<body>
+    <header class="main-header">
+        
+        <div class="navbar">
+            <div class="navbarBg"></div>
+            <div class="brand">
+                <div>
+                    <img href="#" src="https://media.discordapp.net/attachments/1064664448117243965/1064690568740995192/head.png" alt="">
+                </div>
+                <div class="brand-text">
+                    <span>ALF</span>
+                    <span>ANDOR</span>
+                </div>
+            </div>
+            
+            <div class="navbarMover"></div>
+            <nav>
+                <ul>
+                    <li><a href="#">Anasayfa</a></li>
+                    <li><a href="#product">Ürünler</a></li>
+                    <li><a href="#contact">İletişim</a></li>
+                </ul>
+                <i class="menu fa-solid fa-chevron-down fa-3x" id="nav-icon"></i>
+            </nav>
+
+
+        </div>
+
+        <div class="content">
+            
+            <h1 class="animate__animated animate__zoomInDown">ALF ANDOR</h1>
+            <span class="animate__animated animate__zoomInDown">HALK ADAMI</span>
+            
+            <div class="axe">
+            <img class="animate__animated animate__flip" src="https://media.discordapp.net/attachments/1064664448117243965/1064701141167915038/axe.png?width=314&height=676" alt="">
+            </div>
+            
+            <section class="server-status">
+                <div class="card animate__animated animate__zoomInDown">
+                    <div class="icon">
+                        <img src="https://images-ext-1.discordapp.net/external/yKW9VurUmpaG02Y5t0-T91mgrecuwtleSa55hR7F8TU/%3Fsize%3D240/https/cdn.discordapp.com/icons/746739181555941466/adc344b3f0ae3c25537b6b662cc2a46d.webp" id="favicon">
+                    </div>
+    
+                    <div class="header">
+                        <h2><span>PAYİDAR</span> ROLEPLAY</h2>
+                    </div>
+
+                    <div class="server-ip">
+                        <h2>payidar.rabisu.net</h2>
+                    </div>
+    
+                    <div id="rest">Yükleniyor ...</div>
+
+                    <div class="player-button">
+                        <a id="player-button" onclick="playerList()">Aktif Oyuncular</a>
+                    </div>
+
+                    <div class="player-list">
+                        <ul id="player-list-ul">
+                            
+                        </ul>
+                    </div>
+
+                    
+                </div>
+    
+                
+            </section>
+
+        </div>
+
+        <script>
+        
+        var ul = document.getElementById("player-list-ul");
+        var url = "https://api.minetools.eu/query/payidar.rabisu.net/25845";
+        
+        function getStatus() {
+
+            
+
+            $.getJSON(url, function(r) {
+                while(ul.hasChildNodes()){
+                ul.removeChild(ul.firstChild);
+          }
+          //data is the JSON string
+          if (r.error) {
+            $('#rest').html('Sunucu Kapalı');
+            $('#player-button').css('visibility', "hidden");
+            return false;
+          }
+
+          $('#rest').html(r.Motd + '<br><b>Aktif Oyuncu:</b> ' + r.Players);
+
+          if (r.Playerlist.length === 0) {
+            $('#player-button').css('visibility', "hidden");
+            return false;
+          }
+
+          
+          let playerListUl = $('#player-list-ul');
+
+          if (window.matchMedia('(max-width: 768px)').matches && !window.matchMedia('(max-width: 468px)').matches) {
+            playerListUl.css('grid-template-columns',r.Playerlist.length < 4 ? `repeat(${r.Playerlist.length},auto)` : 'repeat(4, auto)');
+          }
+
+          else if (window.matchMedia('(max-width: 468px)').matches) {
+            playerListUl.css('grid-template-columns',r.Playerlist.length < 2 ? `repeat(${r.Playerlist.length},auto)` : 'repeat(2, auto)');
+          }
+
+          else {
+            playerListUl.css('grid-template-columns',r.Playerlist.length < 6 ? `repeat(${r.Playerlist.length},auto)` : 'repeat(6, auto)');
+          }
+          
+          for(let i = 0; i < r.Playerlist.length;i++) {
+            let listItem = document.createElement("li");
+            listItem.textContent = r.Playerlist[i];
+             
+                if(r.Playerlist[i] === "Esmanur067") {
+                    listItem.textContent = r.Playerlist[i] + " (Admin)";
+                    listItem.style.color = "#ff80d5";
+                    listItem.style.fontSize = "2rem"
+                }
+                else if(r.Playerlist[i] === "Alf") {
+                    listItem.textContent = r.Playerlist[i] + " (Usta)"
+                    listItem.style.color = "#c8e953";
+                    listItem.style.fontSize = "2rem"
+                }
+                else if(r.Playerlist[i] === "eric") {
+                    listItem.textContent = r.Playerlist[i] + " (Çırak)"
+                    listItem.style.color = "#c8e953";
+                    listItem.style.fontSize = "2rem"
+                }
+                
+            
+            ul.appendChild(listItem);
+          }
+          
+        
+        });  
+        }
+
+        getStatus(); 
+        setInterval(getStatus,5000);
+
+        function playerList() {
+            let element = $(".player-list")
+            if(element.css("visibility") === "hidden") {
+                element.css("visibility","visible")
+            }
+            else{
+                element.css("visibility", "hidden") 
+            }
+            
+            
+        }
+            
+        function swipeNavbar(){
+        let navBarIcon = $('#nav-icon');
+        let navBarMover = $('.navbarMover');
+        let navBar = $('.navbar');
+        let isNavbarTouched = false;
+        let startTouchY;
+        let startMoverHeight;
+        let startNavbarHeight;
+        let navbarOpen = false;
+        document.addEventListener('touchstart' ,e=>{
+            if((!navbarOpen && e.touches[0].clientY <= 150) || (navbarOpen && e.touches[0].clientY <= 280)){
+                isNavbarTouched = true; 
+                startTouchY = e.touches[0].clientY;
+                startMoverHeight = Number(navBarMover.css('height').replace('px',''));
+                startNavbarHeight = Number(navBar.css('height').replace('px',''));
+            }
+        });
+
+        document.addEventListener('touchmove',e=>{
+            if(!isNavbarTouched) return false;
+            e.preventDefault();
+            let touchY = e.touches[0].clientY;
+            if(touchY - startTouchY <= 145 && touchY < 280){
+                let movementRange = (touchY - startTouchY) / 145;
+                    
+                let navbarMoverHeight = `${startMoverHeight + movementRange * 130}px`;
+                let NavbarHeight = `${startNavbarHeight + movementRange * 130}px`;
+                navBarMover.css('height',navbarMoverHeight);
+                navBar.css('height',NavbarHeight );
+            }
+        },{passive:false});
+
+        document.addEventListener('touchend', e=>{
+            if(isNavbarTouched) {
+                let navbarHeight = Number(navBar.css('height').replace('px',''));
+                if(navbarHeight >= 215){
+                    navBarIcon.removeClass('fa-chevron-down');
+                    navBarIcon.addClass('fa-chevron-up');
+                    navbarOpen = true;
+                }
+                else{
+                    navbarOpen = false;
+                    navBarIcon.removeClass('fa-chevron-up');
+                    navBarIcon.addClass('fa-chevron-down');
+                }
+                navBar.css('height', navbarHeight < 215 ? '150px' : '280px');
+                navBarMover.css('height',navbarHeight < 215 ? '50px' : '180px')
+                isNavbarTouched = false;
+            }
+        });
+        
+        }
+
+
+        swipeNavbar();
+            
+        
+    </script>
+
+    <script>
+    
+        var isNS = (navigator.appName == "Netscape") ? 1 : 0;
+        var EnableRightClick = 0;
+        if(isNS)
+        document.captureEvents(Event.MOUSEDOWN||Event.MOUSEUP);
+        function mischandler(){
+        if(EnableRightClick==1){ return true; }
+        else {return false; }
+        }
+        function mousehandler(e){
+        if(EnableRightClick==1){ return true; }
+        var myevent = (isNS) ? e : event;
+        var eventbutton = (isNS) ? myevent.which : myevent.button;
+        if((eventbutton==2)||(eventbutton==3)) return false;
+        }
+        function keyhandler(e) {
+        var myevent = (isNS) ? e : window.event;
+        if (myevent.keyCode==96)
+        EnableRightClick = 1;
+        return;
+        }
+        document.oncontextmenu = mischandler;
+        document.onkeypress = keyhandler;
+        document.onmousedown = mousehandler;
+        document.onmouseup = mousehandler;
+
+        language="JavaScript1.2"> 
+        function disableselect(e){ return false } 
+        function reEnable(){ return true } document.onselectstart=new 
+        Function ("return false") 
+        if (window.sidebar){ document.onmousedown=disableselect 
+        document.onclick=reEnable }
+    
+    </script>
+
+    </header>
+
+    <main>
+        <!-- about -->
+        <section class="about">
+            <div class="story">
+                <H2>HİKAYE</H2>
+                <p>
+                    <span>ALF</span>, insanlıktan uzakta bir köyde dünyaya geldi. Alf, sebebi bilinmemekle birlikte yaşıtlarına göre oldukça kısa boyludur. 16 yaşına geldiğinde boyu 1.38cm'i görmüştü ve uzaması bu yaşta tamamen durmuştu. Bu da çevresinde kendisini dışlanmış hissettiriyordu. Sadece 3-5 ailenin yaşadığı bir bölgede babasının yanında odunculuk ve marangozluk yaparak bu mesleği öğrenerek gençliğini geçirdi. Ta ki o gün gelip çatana kadar. Yani şafak vaktinde bir grup haydutun köylerini yağmalamasına kadar. Herkes uykudayken köye saldırı gerçekleştirildi. Alf'in babası Alf'i eşya dolabına sakladı ve ona sessiz olmasını, her şeyin düzeleceğini ve korkmaması gerektiğini söyledi. Fakat her şey düşündüğü gibi olmadı. Tüm köydeki insanlar katledildi. Sağ kalan sadece Alf'di. Vahşetin verdiği travmayı atlatamayan Alf ne yapacağını bilemiyordu. Köylerinin yanından geçen bir kervanın olayı görmesi üzerine Alf'i yanlarına alırlar ve uzak diyarlara, Esmir topraklarına  doğru yola koyulurlar. Burada Alf'i yeni bir hayat bekliyordu.. Alf, Esmir topraklarında 38 yaşına kadar bir oduncunun yanında çalışarak babasının mesleğinde kendini geliştirdi ve odunculuk, marangozluk ile yaşamını sürdürdü. Fakat işleri daha da büyütmek, biraz da olsa gün yüzü görmek istiyordu ve bunun için canla başla çalışmaktadır.</p>
+                <p>
+                    <span>ALF</span>, Esmir topraklarından ayrılarak Eldoran topraklarına doğru yola koyulur. Birikmiş parasıyla burada kendine bir marangoz atolyesi açarak kendi işini yapmaya başlar. Oldukça zor bir süreçten geçen Alf, yanına çırak olarak Eldoran topraklarında tanıştığı Eric'i alır ve ona işleri öğretir. Eric, Alf'in yükünü oldukça azaltmıştır. Bundan sonraki süreçler Eric ve Alf'in Eldoran topraklarındaki maceralarına göre şekillenecektir. 
+                </p>
+            </div>
+        </section>
+
+        <section class="staff">
+            <h2>ÇALIŞANLAR</h2>
+            <div class="staff-list">
+                <div class="staff-1">
+                    <h3>USTA</h3>
+                    <span>ALF ANDOR</span>
+                    <img src="https://media.discordapp.net/attachments/1064664448117243965/1066702159372095569/alfpng.png" alt="">
+                </div>
+                <div class="staff-2">
+                    <h3>ÇIRAK</h3>
+                    <span>ERİC</span>
+                    <img src="https://media.discordapp.net/attachments/1060494174442496071/1060494174773837914/unnamed.png" alt="">
+                </div>
+            </div>
+        </section>
+
+        <section class="product" id="product">
+            <h2>ÜRÜNLER</h2>
+            <ul class="list">
+                <li>
+                    <img src="https://media.discordapp.net/attachments/1064664448117243965/1064723531411238973/item1cart.PNG?width=777&height=559" alt="">
+                    
+                        <span>YÜK ARABASI</span>
+                        <span>15 DİNAR</span>
+                    
+                </li>
+                <li>
+                    <img src="https://media.discordapp.net/attachments/1064664448117243965/1064723531780341870/item2dolap.png?width=598&height=559" alt="">
+                    
+                        <span>EŞYA DOLABI</span>
+                        <span>12 DİNAR</span>
+                    
+                </li>
+                <li>
+                    <img src="https://media.discordapp.net/attachments/1064664448117243965/1064723532027797616/item3sandk.png" alt="">
+                    
+                        <span>EŞYA SANDIĞI</span>
+                        <span>8 DİNAR</span>
+                    
+                </li>
+                <li>
+                    <img src="https://media.discordapp.net/attachments/1064664448117243965/1064723532304629780/item4normalyatak.png" alt="">
+                    <span>YUMUŞAK YATAK</span>
+                    <span>7 DİNAR</span>
+                </li>
+                <li>
+                    <img src="https://media.discordapp.net/attachments/1064664448117243965/1064723532564668496/item5kralyatagi.png?width=818&height=559" alt="">
+                    <span>Krallara göre lüks yatak</span>
+                    <span>15 DİNAR</span>
+                </li>
+                <li>
+                    <img src="https://media.discordapp.net/attachments/1064664448117243965/1064727268242493480/item6mumluk.PNG" alt="">
+                    <span>MUMLUK</span>
+                    <span>6 DİNAR</span>
+                </li>
+                <li>
+                    <img src="https://media.discordapp.net/attachments/1064664448117243965/1064997297299128320/item7kasa.png" alt="">
+                    <span>PAZAR KASASI</span>
+                    <span>6 DİNAR</span>
+                </li>
+                <li>
+                    <img src="https://media.discordapp.net/attachments/1064664448117243965/1064997297676619837/item8sandal.PNG" alt="">
+                    <span>SANDAL</span>
+                    <span>7 DİNAR</span>
+                </li>
+                <li>
+                    <img src="https://media.discordapp.net/attachments/1064664448117243965/1064997298255446076/item9dolap2.png?width=744&height=676" alt="">
+                    <span>DOLAP 2</span>
+                    <span>13 DİNAR</span>
+                </li>
+                <li>
+                    <img src="https://media.discordapp.net/attachments/1064664448117243965/1064997298561613824/item10cekmece.PNG?width=528&height=676" alt="">
+                    <span>ÇEKMECE</span>
+                    <span>6 DİNAR</span>
+                </li>
+                <li>
+                    <img src="https://media.discordapp.net/attachments/1064664448117243965/1064997298821664848/item11sandk2.PNG" alt="">
+                    <span>EŞYA SANDIĞI 2</span>
+                    <span>8 DİNAR</span>
+                </li>
+                <li>
+                    <img src="https://media.discordapp.net/attachments/1064664448117243965/1064997299043958854/item12tabure.png" alt="">
+                    <span>TABURE</span>
+                    <span>5 DİNAR</span>
+                </li>
+                <li>
+                    <img src="https://media.discordapp.net/attachments/1064664448117243965/1064997299320787076/item13vitrin.png?width=739&height=676" alt="">
+                    <span>VİTRİN</span>
+                    <span>11 DİNAR</span>
+                </li>
+                <li>
+                    <img src="https://media.discordapp.net/attachments/1064664448117243965/1064997299689898074/item14feneraydnlatma.png" alt="">
+                    <span>FENER AYDINLATMA</span>
+                    <span>4 DİNAR</span>
+                </li>
+                <li>
+                    <img src="https://media.discordapp.net/attachments/1064664448117243965/1064997299920568420/item15masa.png" alt="">
+                    <span>MASA</span>
+                    <span>7 DİNAR</span>
+                </li>
+                <li>
+                    <img src="https://media.discordapp.net/attachments/1064664448117243965/1064997300243546143/item16tablo.png" alt="">
+                    <span>TABLO</span>
+                    <span>6 DİNAR</span>
+                </li>
+            </ul>
+        </section>
+
+        <section class="contact" id="contact">
+            <h2>İLETİŞİM</h2>
+            
+            <div class="discord">
+                <a href="https://discordapp.com/users/665913347018981390" target="_blank">
+                <i class="fa-brands fa-discord fa-3x"></i>
+                </a>
+                
+            </div>
+        </section>
+
+        
+
+    </main> 
+
+    <footer>
+            Copyright © 2025 - Emre Onbaşı
+    </footer>
+
+    
+
+</body>
+</html>

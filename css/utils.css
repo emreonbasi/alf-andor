@@ -1,0 +1,53 @@
+.container {
+    margin: 0 auto;
+    width: 100%;
+}
+
+:root {
+    --primary: #E6CDA5;
+    --secondary: #333;
+    --danger: #c8fa13;
+    --white: #fff;
+}
+
+
+h1 { 
+    font-family: 'MedievalSharp'; 
+    font-size: 24px; 
+    font-style: normal; 
+    font-variant: normal; 
+    font-weight: 700; 
+    line-height: 26.4px; 
+} 
+h3 { 
+    font-family: 'MedievalSharp'; 
+    font-size: 14px; 
+    font-style: normal; 
+    font-variant: normal; 
+    font-weight: 700; 
+    line-height: 15.4px; 
+} 
+p { 
+    font-family: 'MedievalSharp'; 
+    font-size: 14px; 
+    font-style: normal; 
+    font-variant: normal; 
+    font-weight: 400; 
+    line-height: 20px; 
+} 
+blockquote { 
+    font-family: 'MedievalSharp'; 
+    font-size: 21px; 
+    font-style: normal; 
+    font-variant: normal; 
+    font-weight: 400; 
+    line-height: 30px; 
+} 
+pre { 
+    font-family: 'MedievalSharp';
+    font-size: 13px; 
+    font-style: normal; 
+    font-variant: normal; 
+    font-weight: 400; 
+    line-height: 18.5714px; 
+}
