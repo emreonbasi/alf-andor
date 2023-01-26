@@ -17,6 +17,10 @@
     background-color: #333333;
     }
 
+.mainLoginInput::placeholder{
+    font-family: 'MedievalSharp';
+}
+
 html {
     font-size: 10px;
     scroll-behavior: smooth;
@@ -496,13 +500,16 @@ img {
 
 /* CONTACT */
 .contact {
-    margin: 5rem 0;
-    text-align: center;
+    margin: 9rem 0;
+    background: url(../img/contact.png);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    
 }
 
 .contact h2 {
     font-size: 4.5rem;
-    padding-bottom: 3rem;
+    text-align: center;
 }
 
 .contact p {
@@ -517,13 +524,13 @@ img {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 150px;
-    font-weight: 700;
+    height: 120px;
+    margin: -2.5rem 0;
 }
 
 .contact .discord a:hover {
-    color: var(--primary);
-    border: 1px solid var(--primary);
+    opacity: .9;
+    border: 1px solid var(--secondary);
     border-radius: 50%;
     padding: 10px;
 }
@@ -532,6 +539,104 @@ img {
     font-size: 3rem;
     color: var(--secondary);
 }
+
+.contact .mail {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.3rem;
+}
+
+
+.contact .mail label {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.contact .mail label input {
+    width: 200px;
+    height: 30px;
+    font-size: 3rem;
+    text-align: center;
+    transition: width 0.4s ease-in-out;
+    font-family: 'MedievalSharp';
+    background-color: var(--primary);
+    outline: none;
+    border: 10px solid transparent;
+    padding: 15px;
+    border-image: url(https://media.discordapp.net/attachments/1064664448117243965/1067956056111730718/border-1.png) 30 round;
+}
+
+.contact .mail label input:focus {
+    width: 400px;
+}
+
+.contact .label-2 textarea {
+    font-size: 3rem;
+    width: 200px;
+    transition: width 0.4s ease-in-out;
+    text-align: center;
+    font-family: 'MedievalSharp';
+    resize: none;
+    outline: none;
+    background-color: var(--primary);
+    border: 10px solid transparent;
+    padding: 15px;
+    border-image: url(https://media.discordapp.net/attachments/1064664448117243965/1067956056111730718/border-1.png) 30 round;
+    
+}
+
+.contact .label-2 textarea:focus {
+    width: 400px;
+}
+
+.contact .mail button {
+    font-size: 2rem;
+    border-radius: 5px;
+    padding: 3px;
+    background-color: var(--secondary);
+    color: var(--primary);
+}
+
+.contact .mail button:hover {
+    transform: scale(1.1);
+    opacity: .9;
+}
+
+.contact .mail button:active {
+    opacity: .4;
+    
+}
+
+@media(max-width: 768px) {
+    .contact .mail label input:focus {
+        width: 425px;
+    }
+
+    .contact .label-2 textarea:focus {
+        width: 425px;
+    }
+}
+
+@media(max-width: 468px) {
+    .contact .mail label input:focus {
+        width: 200px;
+        height: 30px;
+    }
+
+    .contact .label-2 textarea:focus {
+        width: 200px;
+        height: 152px;
+    }
+}
+
+
+
+
+
 
 
 

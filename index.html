@@ -213,10 +213,29 @@
             <h2>İLETİŞİM</h2>
             
             <div class="discord">
-                <a href="https://discordapp.com/users/665913347018981390" target="_blank">
-                <i class="fa-brands fa-discord fa-3x"></i>
+                <a href="https://discordapp.com/users/665913347018981390" target="_blank" title="Discord">
+                <i class="fa-brands fa-discord fa-2x"></i>
                 </a>
-                
+            </div>
+
+            <div class="contact-mail">
+                <form class="mail" action="https://formspree.io/f/mayzqwrk" 
+                    method="POST">
+                    <label class="label-1"> 
+                        İsminiz:
+                        <input type="text" name="İsim" required maxlength="16" placeholder="Giriniz">
+                    </label>
+                    <label class="label-2">
+                        Mesajınızı Giriniz:
+                        <textarea required name="Mesaj" cols="10" rows="3" maxlength="300" placeholder="Giriniz"></textarea>
+                        <div id="the-count">
+                            <span id="current">0</span>
+                            <span id="maximum">/ 300</span>
+                        </div>
+                    </label>
+                    <!-- your other form fields go here -->
+                    <button type="submit">Gönder</button>
+                </form>
             </div>
         </section>
 
