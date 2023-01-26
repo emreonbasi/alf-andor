@@ -21,6 +21,10 @@
     font-family: 'MedievalSharp';
 }
 
+button {
+    cursor: url(https://images-ext-1.discordapp.net/external/KMTtV5yte-yuwVwEjC0VBVLqkG9kYT-fmXXJ778PdkY/https/sweezy-cursors.com/wp-content/uploads/cursor/middle-ages/middle-ages-pointer-32x32.png), auto;
+}
+
 html {
     font-size: 10px;
     scroll-behavior: smooth;
@@ -526,6 +530,7 @@ img {
     justify-content: center;
     height: 120px;
     margin: -2.5rem 0;
+    visibility: hidden;
 }
 
 .contact .discord a:hover {
@@ -563,11 +568,11 @@ img {
     text-align: center;
     transition: width 0.4s ease-in-out;
     font-family: 'MedievalSharp';
-    background-color: var(--primary);
+    background-color: transparent;
     outline: none;
     border: 10px solid transparent;
     padding: 15px;
-    border-image: url(https://media.discordapp.net/attachments/1064664448117243965/1067956056111730718/border-1.png) 30 round;
+    
 }
 
 .contact .mail label input:focus {
@@ -582,11 +587,9 @@ img {
     font-family: 'MedievalSharp';
     resize: none;
     outline: none;
-    background-color: var(--primary);
+    background-color: transparent;
     border: 10px solid transparent;
     padding: 15px;
-    border-image: url(https://media.discordapp.net/attachments/1064664448117243965/1067956056111730718/border-1.png) 30 round;
-    
 }
 
 .contact .label-2 textarea:focus {
