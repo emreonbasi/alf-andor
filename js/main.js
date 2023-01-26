@@ -145,7 +145,7 @@ function blockRightClick(){
 }
 
 function textAreaShowCharacter(){
-    // TEXT AREA SHOW CHARACTER
+    // TEXT AREA KARAKTER SAYISI GÖSTERME
 
 $('textarea').keyup(function() {
     
@@ -188,6 +188,7 @@ $('textarea').keyup(function() {
     
 }
 
+// İLETİŞİM - MESAJ GÖNDERME
 
 function initWebSocket(){
     let message = document.getElementById('mesaj').value;
@@ -216,6 +217,9 @@ function initWebSocket(){
         socket.send(JSON.stringify({type:'message',message:message}));
     }
 }
+
+
+
 
 getStatus(); 
 setInterval(getStatus,5000);
