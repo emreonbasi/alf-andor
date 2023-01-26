@@ -219,23 +219,24 @@
             </div>
 
             <div class="contact-mail">
-                <form class="mail" action="https://formspree.io/f/mayzqwrk" 
+                <div class="mail"
                     method="POST">
                     <label class="label-1"> 
                         İsminiz:
-                        <input type="text" name="İsim" required maxlength="16" placeholder="Giriniz">
+                        <input type="text" name="İsim" required maxlength="16" placeholder="Giriniz" id="isim">
                     </label>
+
                     <label class="label-2">
                         Mesajınızı Giriniz:
-                        <textarea required name="Mesaj" cols="10" rows="3" maxlength="300" placeholder="Giriniz"></textarea>
+                        <textarea required name="Mesaj" cols="10" rows="3" maxlength="300" placeholder="Giriniz" id="mesaj"></textarea>
                         <div id="the-count">
                             <span id="current">0</span>
                             <span id="maximum">/ 300</span>
                         </div>
                     </label>
-                    <!-- your other form fields go here -->
-                    <button type="submit">Gönder</button>
-                </form>
+
+                    <button onclick="initWebSocket()">Gönder</button>
+                </div>
             </div>
         </section>
 

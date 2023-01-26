@@ -1,16 +1,18 @@
-
-var ul = document.getElementById("player-list-ul");
-var url = "https://api.minetools.eu/query/payidar.rabisu.net/25845";
+var socket;
+let isWsOpen = false;
 
 function getStatus() {
 
-    
+    let ul = document.getElementById("player-list-ul");
+    let url = "https://api.minetools.eu/query/payidar.rabisu.net/25845";
 
-    $.getJSON(url, function(r) {
+    // Siteye query gönder
+    $.getJSON(url, function(r) { 
+        // yeni gelen oyuncu listesini koymadan önce eski oyuncuları listeden sil
         while(ul.hasChildNodes()){
         ul.removeChild(ul.firstChild);
     }
-    //data is the JSON string
+    // Hata alınırsa sunucunun kapalı olduğunu yaz
     if (r.error) {
     $('#rest').html('Sunucu Kapalı');
     $('#player-button').css('visibility', "hidden");
@@ -19,18 +21,21 @@ function getStatus() {
 
     $('#rest').html(r.Motd + '<br><b>Aktif Oyuncu:</b> ' + r.Players);
 
+    // Oyuncu yok ise AKtif oyuncular butonunu gizle
     if (r.Playerlist.length === 0) {
     $('#player-button').css('visibility', "hidden");
     return false;
     }
 
-    
+
     let playerListUl = $('#player-list-ul');
 
+    // 768px'den görüntüleniyorsa grid columnunu küçült
     if (window.matchMedia('(max-width: 768px)').matches && !window.matchMedia('(max-width: 468px)').matches) {
     playerListUl.css('grid-template-columns',r.Playerlist.length < 4 ? `repeat(${r.Playerlist.length},auto)` : 'repeat(4, auto)');
     }
 
+    // 468px'den görüntüleniyorsa grid columnunu küçült
     else if (window.matchMedia('(max-width: 468px)').matches) {
     playerListUl.css('grid-template-columns',r.Playerlist.length < 2 ? `repeat(${r.Playerlist.length},auto)` : 'repeat(2, auto)');
     }
@@ -39,6 +44,7 @@ function getStatus() {
     playerListUl.css('grid-template-columns',r.Playerlist.length < 6 ? `repeat(${r.Playerlist.length},auto)` : 'repeat(6, auto)');
     }
     
+    // gelen oyuncu listesindeki oyuncuların adını li elementi olarak ekle bazılarının yazılarını ve renklerini değiştir
     for(let i = 0; i < r.Playerlist.length;i++) {
     let listItem = document.createElement("li");
     listItem.textContent = r.Playerlist[i];
@@ -59,13 +65,15 @@ function getStatus() {
             listItem.style.fontSize = "2rem"
         }
         
-    
+    // oluşturulan li elementini ul nin altına ekle
     ul.appendChild(listItem);
     }
     
 
 });  
 }
+
+// aktif oyuncular düğmesine basıldığında playerlisti aç kapa
 function playerList() {
     let element = $(".player-list")
     if(element.css("visibility") === "hidden") {
@@ -87,22 +95,23 @@ let startTouchY;
 let startMoverHeight;
 let startNavbarHeight;
 let navbarOpen = false;
+
+// Ekrana dokunulduğunda dokunmanın y koordinatını ve oynatılacak elementlerin boyunu kaydet
 document.addEventListener('touchstart' ,e=>{
     if((!navbarOpen && e.touches[0].clientY <= 150) || (navbarOpen && e.touches[0].clientY <= 280)){
-        isNavbarTouched = true; 
-        startTouchY = e.touches[0].clientY;
+        isNavbarTouched = true; // Dokunulan yer navbar
+        startTouchY = e.touches[0].clientY;  // Dokunmaya nereden başlandı
         startMoverHeight = Number(navBarMover.css('height').replace('px',''));
-        startNavbarHeight = Number(navBar.css('height').replace('px',''));
+        startNavbarHeight = Number(navBar.css('height').replace('px',''));  
     }
 });
 
 document.addEventListener('touchmove',e=>{
     if(!isNavbarTouched) return false;
-    e.preventDefault();
+    e.preventDefault(); // Navbara dokunuldu ise aşağı kaymayı önle
     let touchY = e.touches[0].clientY;
-    if(touchY - startTouchY <= 145 && touchY < 280){
-        let movementRange = (touchY - startTouchY) / 145;
-            
+    if(touchY - startTouchY <= 145 && touchY < 280){ // Dokunma çok aşağıdaysa navbarı hareket ettirmemek için ve dokunma range ini belirlemek için
+        let movementRange = (touchY - startTouchY) / 145; // Dokunma range ini 0 ile 1 arasında bir değer olarak al örn: 0.44651
         let navbarMoverHeight = `${startMoverHeight + movementRange * 130}px`;
         let NavbarHeight = `${startNavbarHeight + movementRange * 130}px`;
         navBarMover.css('height',navbarMoverHeight);
@@ -119,12 +128,12 @@ document.addEventListener('touchend', e=>{
             navbarOpen = true;
         }
         else{
-            navbarOpen = false;
             navBarIcon.removeClass('fa-chevron-up');
             navBarIcon.addClass('fa-chevron-down');
+            navbarOpen = false;
         }
-        navBar.css('height', navbarHeight < 215 ? '150px' : '280px');
-        navBarMover.css('height',navbarHeight < 215 ? '50px' : '180px')
+        navBar.css('height', navbarHeight < 215 ? '150px' : '280px'); // 215 px'den yukarıdaysa yukarıya değilse aşağı yapıştır
+        navBarMover.css('height',navbarHeight < 215 ? '50px' : '180px') // 215 px'den yukarıdaysa yukarıya değilse aşağı yapıştır
         isNavbarTouched = false;
     }
 });
@@ -132,52 +141,15 @@ document.addEventListener('touchend', e=>{
 }
 
 function blockRightClick(){
-
-    var isNS = (navigator.appName == "Netscape") ? 1 : 0;
-    var EnableRightClick = 0;
-    if(isNS)
-    document.captureEvents(Event.MOUSEDOWN||Event.MOUSEUP);
-    function mischandler(){
-    if(EnableRightClick==1){ return true; }
-    else {return false; }
-    }
-    function mousehandler(e){
-    if(EnableRightClick==1){ return true; }
-    var myevent = (isNS) ? e : event;
-    var eventbutton = (isNS) ? myevent.which : myevent.button;
-    if((eventbutton==2)||(eventbutton==3)) return false;
-    }
-    function keyhandler(e) {
-    var myevent = (isNS) ? e : window.event;
-    if (myevent.keyCode==96)
-    EnableRightClick = 1;
-    return;
-    }
-    document.oncontextmenu = mischandler;
-    document.onkeypress = keyhandler;
-    document.onmousedown = mousehandler;
-    document.onmouseup = mousehandler;
-
-    language="JavaScript1.2"> 
-    function disableselect(e){ return false } 
-    function reEnable(){ return true } document.onselectstart=new 
-    Function ("return false") 
-    if (window.sidebar){ document.onmousedown=disableselect 
-    document.onclick=reEnable }
+    document.addEventListener('contextmenu', event => event.preventDefault());
 }
 
-
-getStatus(); 
-setInterval(getStatus,5000);
-blockRightClick();
-swipeNavbar();
-            
-
-// TEXT AREA SHOW CHARACTER
+function textAreaShowCharacter(){
+    // TEXT AREA SHOW CHARACTER
 
 $('textarea').keyup(function() {
     
-    var characterCount = $(this).val().length,
+    let characterCount = $(this).val().length,
         current = $('#current'),
         maximum = $('#maximum'),
         theCount = $('#the-count');
@@ -213,4 +185,44 @@ $('textarea').keyup(function() {
     
         
   });
+    
+}
+
+
+function initWebSocket(){
+    let message = document.getElementById('mesaj').value;
+    let name = document.getElementById('isim').value;
+    if(!message || (!socket && !name)) {return;}
+
+
+    if(!isWsOpen){
+
+        socket = new WebSocket('wss://payidarsvstatus-production.up.railway.app');
+
+        socket.addEventListener('open', (event) => {
+        socket.send(JSON.stringify({name:name, type:'init',message:message}));
+        isWsOpen = true;
+        });
+    
+        socket.addEventListener('message', (event) => {
+        console.log('Message from server ', event.data);
+        });
+
+        socket.addEventListener('close',()=>{
+            isWsOpen = false;
+        })
+    }
+    else{
+        socket.send(JSON.stringify({type:'message',message:message}));
+    }
+}
+
+getStatus(); 
+setInterval(getStatus,5000);
+blockRightClick();
+swipeNavbar();
+textAreaShowCharacter();
+            
+
+
         

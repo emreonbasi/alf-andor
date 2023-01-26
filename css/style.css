@@ -37,6 +37,7 @@ body {
     background-color: var(--white);
     color: var(--secondary);
     line-height: 1.6;
+    user-select: none;
 }
 
 ul {
