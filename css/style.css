@@ -509,6 +509,7 @@ img {
     background: url(../img/contact.png);
     background-repeat: no-repeat;
     background-position: 50%;
+    position: relative;
     
 }
 
@@ -639,12 +640,6 @@ img {
 
 
 
-
-
-
-
-
-
 /* FOOTER */
 
 footer {
@@ -652,8 +647,60 @@ footer {
     padding: 5rem;
     background: var(--primary) url(../img/bg-1.jpg) repeat;
     font-size: 2rem;
+    
+    
 }
 
+
+/* LİVE-CONTACT */
+
+.live-contact {
+    margin-top: 40rem;
+
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.live-contact .live-button {
+    text-align: center;
+    width: 200px;
+    display: inline-block;
+    border: 1px solid transparent; 
+    background-color: #1f93ff;
+    border-radius: 40px; 
+    padding: 8px 14px;
+    cursor: url(https://images-ext-1.discordapp.net/external/KMTtV5yte-yuwVwEjC0VBVLqkG9kYT-fmXXJ778PdkY/https/sweezy-cursors.com/wp-content/uploads/cursor/middle-ages/middle-ages-pointer-32x32.png), auto;
+    margin-bottom: 2rem;
+    
+    
+}
+
+.live-contact .chat-box {
+    display: flex;
+    margin-bottom: 2rem;
+}
+
+.live-contact .chat-box #canli-mesaj {
+    width: 400px;
+    height: 30px;
+    padding: 3px;
+    font-size: 2rem;
+    resize: none;   
+}
+
+.live-contact .chat-box button {
+    margin-left: 1rem;
+    padding: 4px;
+    border-radius: 10px;
+}
+
+.live-contact .live-button:hover {
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px; 
+}
 
 
 /* MOBİLE PRODUCT*/
