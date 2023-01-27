@@ -218,6 +218,19 @@ function initWebSocket(){
     }
 }
 
+// GÖNDER BUTONU UYARI
+
+document.addEventListener("DOMContentLoaded", function(event) {
+ 
+    var e = document.getElementById("form-button");
+
+    e.addEventListener("click", function() {
+
+        alert("Mesaj gönderildi!");
+
+    }, false);
+
+  });
 
 
 
